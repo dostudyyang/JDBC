@@ -24,17 +24,17 @@ public class JDBCTesst01 {
         }catch(Exception e){
             e.printStackTrace();
         }finally {
-            if(stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
             if(conn != null){
                 try{
                     conn.close();
                 }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            if(stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
