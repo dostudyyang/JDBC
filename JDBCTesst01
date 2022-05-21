@@ -1,0 +1,43 @@
+import java.sql.*;
+import java.util.*;
+
+public class JDBCTesst01 {
+    public static void main(String[] args){
+
+        ResourceBundle bundle = ResourceBundle.getBundle("jdbc");
+        String driver = bundle.getString("driver");
+        String url = bundle.getString("url");
+        String user = bundle.getString("user");
+        String password = bundle.getString("password");
+
+        Connection conn = null;
+        Statement stmt = null;
+        try{
+
+            //DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url,user,password);
+            stmt = conn.createStatement();
+            String sql = "delete from dept where deptno=30";
+            int count = stmt.executeUpdate(sql);
+            System.out.println(count == 1 ? "success" : "fail");
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            if(stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(conn != null){
+                try{
+                    conn.close();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
